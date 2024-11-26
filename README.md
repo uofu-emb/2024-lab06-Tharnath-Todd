@@ -3,10 +3,10 @@
 ### Activity 0
 Induce priority inversion.
 
-1. create two preemptable threads (and a supervisor to manage them).
-1. create a semaphore shared between the two. Create it with xSemaphoreCreateBinary.
-1. set one thread to higher priority. set it to delay start.
-1. have the lower priority thread acquire the semphore first.
+1. Create two preemptable threads (and a supervisor to manage them).
+1. Create a semaphore shared between the two. Create it with xSemaphoreCreateBinary.
+1. Set one thread to higher priority. set it to delay start.
+1. Have the lower priority thread acquire the semphore first.
 1. Predict the behavior of the system.
 
 ```
@@ -100,6 +100,7 @@ Without priority inheritance, a medium-priority task could preempt the low-prior
 
 ### Activity 1
     Repeat the previous experiment, but this time create the semaphore with xSemaphoreCreateMutex
+
 ```
     #include <FreeRTOS.h>
     #include <task.h>
@@ -193,7 +194,7 @@ The high-priority task acquires the mutex without undue delay.
 
 ### Activity 2
     In this activity, you'll create two competing threads that use the following functions
-    ```
+```
     void busy_busy(void)
     {
         for (int i = 0; ; i++);
