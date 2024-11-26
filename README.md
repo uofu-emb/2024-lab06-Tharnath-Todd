@@ -99,7 +99,7 @@ The high-priority task (vTaskHighPriority) will block and wait for the semaphore
 Without priority inheritance, a medium-priority task could preempt the low-priority task, causing further delays.
 
 ### Activity 1
-    Repeat the previous experiment, but this time create the semaphore with xSemaphoreCreateMutex
+Repeat the previous experiment, but this time create the semaphore with xSemaphoreCreateMutex
 
 ```
     #include <FreeRTOS.h>
