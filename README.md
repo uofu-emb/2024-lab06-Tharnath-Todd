@@ -193,7 +193,8 @@ The low-priority task completes its work and releases the mutex quickly.
 The high-priority task acquires the mutex without undue delay.
 
 ### Activity 2
-    In this activity, you'll create two competing threads that use the following functions
+In this activity, you'll create two competing threads that use the following functions
+
 ```
     void busy_busy(void)
     {
@@ -213,6 +214,20 @@ Write tests for two threads running the following scenarios. Try to predict the 
 ### Scenario 1
 1. Threads with same priority:
     1. Both run `busy_busy`.
+        # Code
+```
+        run_analyzer(busy_busy, tskIDLE_PRIORITY+(3), 0, &first_stats,
+             busy_busy, tskIDLE_PRIORITY+(3), 0, &second_stats,
+             &elapsed_stats, &elapsed_ticks);
+```
+
+# Behavior
+- Both threads (busy_busy) run at the same priority without yielding.
+- FreeRTOS doesn't preempt threads of equal priority unless they explicitly yield.
+- The first thread created (first_stats) monopolizes the CPU indefinitely.
+# Prediction:
+- Only the first thread runs (first_stats).
+- The second thread (second_stats) gets very little or no runtime.
     1. Both run `busy_yield`
     1. One run `busy_busy` one run `busy_yield`
 ### Scenario 2
