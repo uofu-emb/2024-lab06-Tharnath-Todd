@@ -76,8 +76,8 @@ add_compile_definitions(
 include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
 
 # The main executable is defined inside the src directory.
-add_subdirectory(src)
+add_subdirectory(test)
 
 # The test configuration is inside the test directory.
-include(CTest)
-add_subdirectory(test)
+# include(CTest)
+# add_subdirectory(src)

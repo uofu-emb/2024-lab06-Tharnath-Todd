@@ -14,16 +14,3 @@
 	path = lib/unity
 	url = git@github.com:ThrowTheSwitch/Unity.git
     ignore = dirty
-[submodule "lib/unity"]
-	path = lib/unity
-	url = https://github.com/ThrowTheSwitch/Unity.git
-[submodule "lib/pico-sdk"]
-	path = lib/pico-sdk
-	url = https://github.com/raspberrypi/pico-sdk.git
-[submodule "lib/freertos"]
-	path = lib/freertos
-	url = https://git@github.com/FreeRTOS/FreeRTOS-Kernel.git
-#sudo /Users/toddnielsen/.pico-sdk/picotool/2.0.0/picotool/picotool load /Users/toddnielsen/ECE_6785/2024-lab06-Tharnath-Todd/build/src/hello_freertos.elf -fx
-[submodule "lib/pico-extras"]
-	path = lib/pico-extras
-	url = https://github.com/raspberrypi/pico-extras.git
