@@ -214,18 +214,18 @@ Write tests for two threads running the following scenarios. Try to predict the 
 ### Scenario 1
 1. Threads with same priority:
     1. Both run `busy_busy`.
-        # Code
+#### Code
 ```
         run_analyzer(busy_busy, tskIDLE_PRIORITY+(3), 0, &first_stats,
              busy_busy, tskIDLE_PRIORITY+(3), 0, &second_stats,
              &elapsed_stats, &elapsed_ticks);
 ```
 
-# Behavior
+#### Behavior
 - Both threads (busy_busy) run at the same priority without yielding.
 - FreeRTOS doesn't preempt threads of equal priority unless they explicitly yield.
 - The first thread created (first_stats) monopolizes the CPU indefinitely.
-# Prediction:
+#### Prediction:
 - Only the first thread runs (first_stats).
 - The second thread (second_stats) gets very little or no runtime.
     1. Both run `busy_yield`
