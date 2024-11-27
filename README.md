@@ -229,14 +229,81 @@ Write tests for two threads running the following scenarios. Try to predict the 
 - Only the first thread runs (first_stats).
 - The second thread (second_stats) gets very little or no runtime.
     1. Both run `busy_yield`
+#### Code
+```
+run_analyzer(busy_yield, tskIDLE_PRIORITY+(3), 0, &first_stats,
+             busy_yield, tskIDLE_PRIORITY+(3), 0, &second_stats,
+             &elapsed_stats, &elapsed_ticks);
+
+```
+#### Behavior
+- Both threads (busy_yield) explicitly call taskYIELD() to relinquish the CPU.
+- The FreeRTOS scheduler alternates execution between the two threads in a round-robin fashion.
+#### Prediction
+- first_stats and second_stats show similar values since both threads get equal runtime.
     1. One run `busy_busy` one run `busy_yield`
+#### Code
+```
+run_analyzer(busy_busy, tskIDLE_PRIORITY+(3), 0, &first_stats,
+             busy_yield, tskIDLE_PRIORITY+(3), 0, &second_stats,
+             &elapsed_stats, &elapsed_ticks);
+
+```
+#### Behavior
+- The busy_busy thread monopolizes the CPU as it does not yield.
+- The busy_yield thread gets very little runtime because it depends on the scheduler, which cannot preempt the busy_busy thread.
+#### Prediction
+- first_stats (busy_busy) is significantly larger than second_stats (busy_yield).
+- second_stats shows a near-zero runtime.
+
+
 ### Scenario 2
 1. Threads with different priority.
     1. Both run `busy_busy`.
         1. Higher priority starts first.
-        1. Lower priority starts first.
-    1. Both run `busy_yield`.
+#### Code
+```
+run_analyzer(busy_busy, tskIDLE_PRIORITY+(4), 0, &first_stats,
+             busy_busy, tskIDLE_PRIORITY+(3), 1, &second_stats,
+             &elapsed_stats, &elapsed_ticks);
 
-Make sure you are setting priorities according to the priority order presented in the documentation.
+```
+#### Behavior
+- The higher-priority thread (tskIDLE_PRIORITY+4) monopolizes the CPU.
+- The lower-priority thread (tskIDLE_PRIORITY+3) gets no runtime.
+#### Prediction
+- first_stats (higher-priority thread) shows significant runtime.
+- second_stats (lower-priority thread) shows almost zero runtime.
+
+        1. Lower priority starts first.
+#### Code
+```
+run_analyzer(busy_busy, tskIDLE_PRIORITY+(3), 0, &first_stats,
+             busy_busy, tskIDLE_PRIORITY+(4), 1, &second_stats,
+             &elapsed_stats, &elapsed_ticks);
+
+```
+#### Behavior
+- The lower-priority thread (tskIDLE_PRIORITY+3) starts first but gets preempted as soon as the higher-priority thread (tskIDLE_PRIORITY+4) becomes ready.
+- The higher-priority thread monopolizes the CPU.
+#### Prediction
+- second_stats (higher-priority thread) dominates.
+- first_stats (lower-priority thread) has negligible runtime.
+    1. Both run `busy_yield`.
+#### Code
+```
+run_analyzer(busy_yield, tskIDLE_PRIORITY+(4), 0, &first_stats,
+             busy_yield, tskIDLE_PRIORITY+(3), 1, &second_stats,
+             &elapsed_stats, &elapsed_ticks);
+
+```
+#### Behavior
+- The higher-priority thread (busy_yield) explicitly yields with taskYIELD() but immediately preempts the lower-priority thread when it resumes.
+- The lower-priority thread runs only when the higher-priority thread is yielding.
+#### Prediction
+- first_stats (higher-priority thread) is significantly larger than second_stats (lower-priority thread).
+- The lower-priority thread shows some runtime but far less than the higher-priority thread.
+
+
 
 
