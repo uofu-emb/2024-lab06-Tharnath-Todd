@@ -1,0 +1,48 @@
+---- Opened the serial port /dev/tty.usbmodem144101 ----
+super took over 41039967
+test/schedule.c:128:test_priority_inversion:PASS
+create primary 41044434
+start priority inversion primary
+create secondary 41044970
+start priority inversion secondary
+super took over 46044969
+super took over 10004968
+primary 99929 secondary 4899510 elapsed 5000943 (us) in 5001 ticks
+test/schedule.c:129:test_mutex_inversion:PASS
+create primary 10009574
+create secondary 10009901
+start busy_busy primary
+start busy_busy secondary
+super took over 15009968
+primary 2500084 secondary 2499531 elapsed 5000590 (us) in 5001 ticks
+test/schedule.c:130:test_no_priority__no_yield:PASS
+create primary 15014267
+create secondary 15014628
+start busy_busy primary
+start busy_yield secondary
+super took over 20013968
+primary 4988770 secondary 10204 elapsed 5000007 (us) in 5000 ticks
+test/schedule.c:131:test_no_priority__yield:PASS
+create primary 20018669
+start busy_busy primary
+create secondary 20019971
+start busy_busy secondary
+super took over 25019967
+primary 937 secondary 4999649 elapsed 5001538 (us) in 5002 ticks
+test/schedule.c:132:test_priority__low_first:PASS
+create primary 25024735
+start busy_busy primary
+create secondary 25025994
+super took over 30025967
+primary 5000529 secondary 0 elapsed 5001391 (us) in 5002 ticks
+test/schedule.c:133:test_priority__high_first:PASS
+create primary 30030721
+start busy_yield primary
+create secondary 30031972
+super took over 35031968
+primary 5000540 secondary 0 elapsed 5001494 (us) in 5002 ticks
+test/schedule.c:134:test_both_busy_yield:PASS
+
+-----------------------
+7 Tests 0 Failures 0 Ignored 
+OK

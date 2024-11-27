@@ -113,6 +113,13 @@ void test_priority__high_first(void)
     TEST_ASSERT(4500000 < first_stats);
     TEST_ASSERT(1000 > second_stats);
 }
+void test_both_busy_yield(void){
+    run_analyzer(busy_yield, tskIDLE_PRIORITY+(4), 0, &first_stats,
+             busy_yield, tskIDLE_PRIORITY+(3), 1, &second_stats,
+             &elapsed_stats, &elapsed_ticks);
+TEST_ASSERT(4500000 < first_stats);
+    TEST_ASSERT(1000 > second_stats);
+}
 
 void main_thread (void *args)
 {
@@ -124,6 +131,7 @@ void main_thread (void *args)
         RUN_TEST(test_no_priority__yield);
         RUN_TEST(test_priority__low_first);
         RUN_TEST(test_priority__high_first);
+        RUN_TEST(test_both_busy_yield);
         UNITY_END();
         vTaskDelay(1000);
     }
