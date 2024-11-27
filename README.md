@@ -286,13 +286,13 @@ run_analyzer(busy_busy, tskIDLE_PRIORITY+(3), 0, &first_stats,
 ##### Prediction
 - second_stats (higher-priority thread) dominates.
 - first_stats (lower-priority thread) has negligible runtime.
+
 #### Both run `busy_yield`.
 ##### Code
 ```
 run_analyzer(busy_yield, tskIDLE_PRIORITY+(4), 0, &first_stats,
              busy_yield, tskIDLE_PRIORITY+(3), 1, &second_stats,
              &elapsed_stats, &elapsed_ticks);
-
 ```
 ##### Behavior
 - The higher-priority thread (busy_yield) explicitly yields with taskYIELD() but immediately preempts the lower-priority thread when it resumes.
