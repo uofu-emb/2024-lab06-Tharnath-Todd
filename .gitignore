@@ -1,6 +1,7 @@
 Testing
 build
 log
+.gitmodules2
 
 *.log.*
 *-asciinema

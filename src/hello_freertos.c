@@ -91,6 +91,17 @@ void busy_busy(void *pvParameters) {
     }
 }
 
+int main( void )
+{
+    stdio_init_all();
+    const char *rtos_name;
+    rtos_name = "FreeRTOS";
+    TaskHandle_t task;
+    xTaskCreate(main_task, "MainThread",
+                MAIN_TASK_STACK_SIZE, NULL, MAIN_TASK_PRIORITY, &task);
+    vTaskStartScheduler();
+    return 0;
+}
 // Function: busy_yield
 void busy_yield(void *pvParameters) {
     for (int i = 0;; i++) {
